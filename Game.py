@@ -9,7 +9,7 @@ from sys import exit
 luckypoint = 0
 
 class player:
-    def __init__(self, name, job):                                                                  #Thief HP:5 ATK:3 DEF: 1 CRI: 3 DEX: 8 SPECIAL ATK: 공격력 갈취 (단, 공격력이 1이하이면 공격 력을 뻈지 않음, 피 회복을 1 만큼 회복), SPECIAL DEF: 회피/ 캐릭터 3개 더 해오기   
+    def __init__(self, name, job):   
         self.HP = 0
         self.name = name
               
