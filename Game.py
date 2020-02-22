@@ -1,3 +1,3 @@
 # Game
-# AUthor : Kim yunsoo
+# AUthor : Kimyunsoo
 # Version : 0.1.0
