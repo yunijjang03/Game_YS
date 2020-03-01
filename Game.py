@@ -48,6 +48,9 @@ class player:
     def is_dead(self):
         return self.HP <= 0
 
+######################################################################
+Thief
+######################################################################
 class Thief(player):
     def __init__(self, name):
         self.name = name
@@ -73,7 +76,9 @@ class Thief(player):
 
     def special_defense(self, enemy):
         print("Miss!")
-
+######################################################################
+BLITZ
+######################################################################
 class BLITZ(player): 
     def __init__(self, name):
         self.name = name
@@ -105,7 +110,9 @@ class BLITZ(player):
             self.HP -= 1
         else:
             self.HP += 1
-        
+######################################################################
+Warrior
+######################################################################        
 class Warrior(player):
     def __init__(self, name):
         self.name = name
@@ -141,7 +148,9 @@ class Warrior(player):
         )
         damage = self.ATK - enemy.DEF
         self.HP -= damage
-
+######################################################################
+Sledge
+######################################################################
 class sledge(player):
 
     def __init__(self, name):
@@ -162,31 +171,144 @@ class sledge(player):
 
     def special_defense(self, enemy):
         print("36계 줄행량")
-
+######################################################################
+Firemagician
+######################################################################
 class Firemagician(player):
-    def __init__(self, enemy):
+
+    def __init__(self, name):
         self.name = name
         self.HP = 6
         self.MP = 5
         self.DEF = 2
         self.CRI = 5
         self.DEX = 5
+        self.ATK = 3
+        self.sk1 = 6
+        self.SK2 = 9
+        self.SK3 = 10
 
     def __str__(self):
-        return "Name: {}, JOB:sledge\nHP: {}".format(self.name, self.HP)
+        return "Name: {}, JOB:Firemagician\nHP: {}".format(self.name, self.HP)
 
     def special_defense(self, enemy):
-        self.MP += 1
+        self.MP += abs(self.DEF - enemy.ATK)
         print("""
                 마력 충전중....
-                현재 마력: {} """.format(self.name, self.MP)
+                현재 마력: {} """.format(self.MP)
             )
-
-class (player):
-    def __init__(self. enemy):
+    
+    def special_attack(self, enemy):
+        N = randint(1,10)
+        if N < self.sk1:
+            if self.MP >= 1:
+                print("파이어볼")
+                damage = 2
+                enemy.HP -= damage
+                self.MP -= 1
+            else:
+                print("마력이 없다....")
+        elif self.sk1 < N < self.SK2:
+            if self.MP >= 2:
+                print("메테오!")
+                damage = 3
+                enemy.HP -= damage
+                self.MP -= 2
+            else:
+                print("메테오를 날렸지만 약해 데미지가 없었다...")
+        elif self.SK2 < N < self.SK3:
+            if self.MP >= 5:
+                print("폭발은 예술이다!")
+                damage = 10
+                enemy.HP -= damage
+                self.MP -= 5
+            else: 
+                print("힘이..없다...")
+######################################################################
+Berserker
+######################################################################
+class Berserker(player):
+    def __init__(self, name):
         self.name = name
-        self.HP = 
-def turn(p1, p2):
+        self.HP = 8
+        self.ATK = 5
+        self.DEF = 4
+        self.CRI = 3
+        self.DEX = 3
+    
+    def __str__(self):
+        return "Name: {}, JOB:berserker\nHP: {}".format(self.name, self.HP)
+    
+    def special_attack(self, enemy):
+        self.ATK += 1
+        print("""
+            버서커의 분노: {}의 공격력이 1만큼 증가합니다.
+            현재 공격력: {}
+            """.format(self.name, self.ATK)
+        )    
+    def special_defense(self,enemy):
+        print("""
+            복수: 일정 HP이하일시 공격력의 두배로 공격 합니다.
+            """
+        )
+        if self.HP < 3:
+            self.ATK *= 2
+            self.HP += 1
+        else:
+            self.ATK = self.ATK
+######################################################################
+Healer
+######################################################################
+class Healer(player):
+    def __init__(self, name):
+        self.name = name
+        self.ATK = 2
+        self.DEF = 4
+        self.CRI =4
+        self.DEX =5
+        self.HP = 7
+
+    def __str__(self):
+        return "Name: {}, JOB:Healer\nHP: {}".format(self.name, self.HP)
+    
+    def special_attack(self, enemy):
+        print("그런거 없어요!")
+        damage = 1
+        enemy.HP -= damage
+    
+    def special_defense(self, enemy):
+        print("영웅은 죽지 않아요!")
+        self.HP += 3
+######################################################################
+Tanker
+######################################################################
+class Tanker(player):
+
+    def __init__(self, name):
+        self.name = name
+        self.HP = 15
+        self.ATK = 2
+        self.DEF = 5
+        self.DEX = 3
+        self.CRI = 3
+
+    def __str__(self):
+        return "Name: {}, JOB:Tanker\nHP:{}".format(self.name, self.HP)
+    
+    def special_attack(self, enemy):
+        enemy.DEF -= 2
+        print("""
+            돌진!!
+            상대방에게 돌진하여 방어력을 2만큼 낮춤니다.
+            현재 방어력: {}
+            """.format(enemy.DEF)
+            )
+    
+    def special_defense(self, enemy):
+        self.DEF += 2
+        print("자신의 방어력을 2만큼 올립니다")
+
+    def turn(p1, p2):
     print("=========================================")
     print("{}의 차례".format(p1.name))
     sleep(1)
@@ -220,8 +342,8 @@ def turn(p1, p2):
     print("======================================================")
     sleep(2)
 
-p1 = BLITZ("윤수")
-p2 = sledge("동규")
+p1 = Firemagician("A")
+p2 = sledge("B")
 
 
 coin = randint(1, 2)
@@ -234,3 +356,8 @@ print("게임을 시작합니다.")
 
 for i in range(100):
     turn(p1, p2)
+    if i < 15:
+        pass
+    else:
+        self.HP -= 1
+        enemy.HP -= 1
