@@ -30,6 +30,14 @@ class player:
             else:
                 damage = self.ATK - enemy.DEF
                 enemy.HP -= damage
+        if self.HP < 0:
+            self.HP = 0
+        else:
+            self.HP = self.HP
+        if enemy.HP < 0:
+            enemy.HP = 0
+        else:
+            enemy.HP = enemy.HP
 
     def special_attack(self, enemy):
         pass
@@ -58,8 +66,8 @@ class Thief(player):
         enemy.ATK -= 1
         print("""
             공격력을 뺏았는다! : {}의 공격력을 1만큼 갈취해서 자신의 공격력에 더합니다.
-            현재 공격력: {}
-            """.format(self.name, self.ATK)
+            현재 공격력: {}, 상대의 공격력: {}
+            """.format(self.name, self.ATK, enemy.ATK)
         )
         damage = self.ATK - enemy.DEF
 
@@ -74,24 +82,21 @@ class BLITZ(player):
         self.DEF = 3
         self.DEX = 3
         self.CRI = 3
-        self.sa = 0
-    
+            
     def __str__(self):
         return "NAME: {}, JOB:BLITZ\nHP: {}".format(self.name, self.HP)
 
     def special_attack(self, enemy):
         print("""
             섬광 방패 : {}의 공격을 못하게 만든다
-            """.format(enemy.name, enemy.ATK)
+            """.format(enemy.name)
         )
         if luckypoint > 0 and luckypoint < 3:
             self.HP -= 1
         else:
             self.HP += 1
-            
-
+        
     def special_defense(self, enemy):
-        enemy.ATK = enemy.sa
         enemy.ATK = 0
         print("섬광 방패: {}의 공격을 못하게한다".format(self.name, self.ATK))
         luckypoint = randint(0,10)
@@ -99,7 +104,7 @@ class BLITZ(player):
             self.HP -= 1
         else:
             self.HP += 1
-
+        
 class Warrior(player):
     def __init__(self, name):
         self.name = name
@@ -121,8 +126,12 @@ class Warrior(player):
         )
         damage = self.ATK - enemy.DEF
         enemy.HP -= damage
+        if self.DEF < 0:
+            self.DEF = 0
+        else:
+            self.DEF = self.DEF
 
-    def special_defense_Warrior(self, enemy):
+    def special_defense(self, enemy):
         self.DEF += 1
         print("""
             단단해지기! : {}의 방어력이 1만큼 상승합니다.
@@ -139,27 +148,26 @@ class sledge(player):
         self.ATK = 4
         self.DEF = 2
         self.CRI = 5
+        self.DEX = 5
 
     def __str__(self):
         return "NAME: {}, JOB:sledge\nHP: {}".format(self.name, self.HP)
 
     def special_attack(self, enemy):
-        enemy.DEF -= 1
-        print("""
-            망치쓰기 : {}의 방어력이 1만큼 감소합니다.
-            현재 방어력: {}
-            """.format(enemy.name, enemy.DEF)
-        )
-        damage = self.ATK - enemy.DEF
+        print("무쇠망치")
+        damage = 1
         enemy.HP -= damage
 
+    def special_defense(self, enemy):
+        print("36계 줄행량")
 class Firemagician(player):
     def __init__(self, enemy):
         self.name = name
         self.HP = 6
         self.MP = 5
-        self.DEF = 5
-        self.ATK = 5
+        self.DEF = 2
+        self.CRI = 5
+        self.DEX = 5
 
     def __str__(self):
         return "Name: {}, JOB:sledge\nHP: {}".format(self.name, self.HP)
@@ -204,8 +212,8 @@ def turn(p1, p2):
     print("======================================================")
     sleep(2)
 
-p1 = Thief("윤수")
-p2 = Warrior("동규")
+p1 = BLITZ("윤수")
+p2 = sledge("동규")
 
 
 coin = randint(1, 2)
