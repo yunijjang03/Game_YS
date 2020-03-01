@@ -153,7 +153,7 @@ class sledge(player):
         damage = self.ATK - enemy.DEF
         enemy.HP -= damage
 
-class Fire magician(player):
+class Firemagician(player):
     def __init__(self, enemy):
         self.name = name
         self.HP = 6
