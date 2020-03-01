@@ -153,6 +153,23 @@ class sledge(player):
         damage = self.ATK - enemy.DEF
         enemy.HP -= damage
 
+class Fire magician(player):
+    def __init__(self, enemy):
+        self.name = name
+        self.HP = 6
+        self.MP = 5
+        self.DEF = 5
+        self.ATK = 5
+
+    def __str__(self):
+        return "Name: {}, JOB:sledge\nHP: {}".format(self.name, self.HP)
+
+    def special_defense(self, enemy):
+        self.MP += 1
+        print("""
+                마력 충전중....
+                현재 마력: {} """.format(self.name, self.MP)
+            )
 def turn(p1, p2):
     print("=========================================")
     print("{}의 차례".format(p1.name))
