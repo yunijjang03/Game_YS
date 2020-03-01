@@ -91,6 +91,7 @@ class BLITZ(player):
             섬광 방패 : {}의 공격을 못하게 만든다
             """.format(enemy.name)
         )
+        luckypoint = randint(1,10)
         if luckypoint > 0 and luckypoint < 3:
             self.HP -= 1
         else:
@@ -142,6 +143,7 @@ class Warrior(player):
         self.HP -= damage
 
 class sledge(player):
+
     def __init__(self, name):
         self.name = name
         self.HP = 10
@@ -160,6 +162,7 @@ class sledge(player):
 
     def special_defense(self, enemy):
         print("36계 줄행량")
+
 class Firemagician(player):
     def __init__(self, enemy):
         self.name = name
@@ -178,6 +181,11 @@ class Firemagician(player):
                 마력 충전중....
                 현재 마력: {} """.format(self.name, self.MP)
             )
+
+class (player):
+    def __init__(self. enemy):
+        self.name = name
+        self.HP = 
 def turn(p1, p2):
     print("=========================================")
     print("{}의 차례".format(p1.name))
