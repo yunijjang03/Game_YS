@@ -324,17 +324,29 @@ class Tanker(player):
         print("{}의 승리!".format(p1.name))
         exit(1)
 #####################################################################
+    randint(1,2)
     sleep(2)
     print("===================================================")
     print("{}의 차례".format(p2.name))
     sleep(1)
-    p2.attack(p1)
-    print("현재 상태")
-    print()
-    print(p1)
-    print()
-    print(p2)
-    ######################################################
+    print("""
+        attack: 1\n run: 2
+        """)
+    gs = input()
+    if gs == 1:
+        p2.attack(p1)
+    elif gs == 2:
+        percent = randint(1,10)
+        if percent >= 1 or percent <= 4:
+            break
+        else:
+            print("현재 상태")
+            print()
+            print(p1)
+            print()
+            print(p2)    
+    
+######################################################
     if p1.is_dead():
         print("{}는 사망하셨습니다.".format(p1.name))
         print("{}의 승리!".format(p2.name))
